@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.NotFreeInstanceException;
+import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
 
 /**
@@ -52,7 +54,18 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
-		
+		try {
+	        Reusable reusable1 = pool.acquireReusable();
+	        assertNotNull(reusable1); // Verifica que el objeto devuelto no es nulo
+	        assertTrue(reusable1 instanceof Reusable); // Verifica que el objeto devuelto es una instancia de Reusable
+	        
+	        Reusable reusable2 = pool.acquireReusable();
+	        assertNotNull(reusable2); // Verifica que el segundo objeto devuelto no es nulo
+	        assertTrue(reusable2 instanceof Reusable); // Verifica que el segundo objeto devuelto es una instancia de Reusable
+
+	    } catch (NotFreeInstanceException e) {
+	        fail("No debería lanzar una excepción al adquirir objetos reusables.");
+	    }
 	}
 
 	/**
