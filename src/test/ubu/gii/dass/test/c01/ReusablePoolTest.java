@@ -72,8 +72,24 @@ public class ReusablePoolTest {
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
 	 */
 	@Test
-	public void testReleaseReusable() {
-		
+	public void testReleaseReusable() throws NotFreeInstanceException {
+		try {
+			// Instancias a liberar.
+			Reusable reusable1 = pool.acquireReusable();
+			assertNotNull(reusable1);
+			
+			// Liberamos las instancia.
+		  	pool.releaseReusable(reusable1);
+		    
+			// Volvemos a liberar la instancia.
+			pool.releaseReusable(reusable1);//Lanza DuplicatedInstanceException
+			
+			// Si no lanza la excepcion falla el test.
+			fail("Se esperaba una excepción DuplicatedInstanceException, pero no se lanzó.");
+		}catch(DuplicatedInstanceException e){
+			assertNotNull(e);
+		}
+	
 	}
 
 }
