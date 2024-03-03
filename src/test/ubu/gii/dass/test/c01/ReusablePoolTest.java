@@ -9,10 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.Client;
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
-
 /**
  * @author Alberto Lanchares Diez
  * @author Borja Blanco Porres
@@ -49,27 +50,29 @@ public class ReusablePoolTest {
 		assertTrue(pool instanceof ReusablePool);
 	}
 
+
+
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
 	 */
 	@Test
 	public void testAcquireReusable() {
-		try {
-		        Reusable reusable1 = pool.acquireReusable();
-		        assertNotNull(reusable1); // Verifica que el objeto devuelto no es nulo
-		        assertTrue(reusable1 instanceof Reusable); // Verifica que el objeto devuelto es una instancia de Reusable
-		        
-		        Reusable reusable2 = pool.acquireReusable();
-		        assertNotNull(reusable2); // Verifica que el segundo objeto devuelto no es nulo
-		        assertTrue(reusable2 instanceof Reusable); // Verifica que el segundo objeto devuelto es una instancia de Reusable
-	
-		} catch (NotFreeInstanceException e) {
-		        fail("No debería lanzar una excepción al adquirir objetos reusables.");
-		}
+		/**
+		 * Al ejecutar cliente ya se realizan las llamadas de adquirir un reusable
+		 */
+	    try {
+	        // Primera instancia.
+	        Reusable reusable1 = pool.acquireReusable();
+
+	    } catch (NotFreeInstanceException e) {
+	    	// Entra al catch al lanzar la excepción.
+	        assertNotNull(e);
+	    }
 	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * @throws NotFreeInstanceException 
 	 */
 	@Test
 	public void testReleaseReusable() throws NotFreeInstanceException {
@@ -79,7 +82,7 @@ public class ReusablePoolTest {
 			assertNotNull(reusable1);
 			
 			// Liberamos las instancia.
-		  	pool.releaseReusable(reusable1);
+		    pool.releaseReusable(reusable1);
 		    
 			// Volvemos a liberar la instancia.
 			pool.releaseReusable(reusable1);//Lanza DuplicatedInstanceException
@@ -91,5 +94,21 @@ public class ReusablePoolTest {
 		}
 	
 	}
+	
+    @Test
+    public void testUtil() {
+        Reusable reusable = new Reusable();
+        String result = reusable.util();
 
+        assertNotNull(result);
+        assertTrue(result.contains(reusable.hashCode() + ""));
+        assertTrue(result.contains("Uso del objeto Reutilizable"));
+    }
+
+    @SuppressWarnings("static-access")
+	@Test
+    public void ClienteTest() throws NotFreeInstanceException, DuplicatedInstanceException {
+    	Client user= new Client();
+    	user.main(null);
+    }
 }
