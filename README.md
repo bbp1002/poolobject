@@ -42,12 +42,7 @@ versiones y no ha conseguido establecer el entorno correctamente.
 
 
 + ¿Tiene calidad el conjunto de pruebas disponibles?
-  - Todos los commits han sido realizados por Borja, por lo que en cuanto a medición 
-se podria contestar en un principio que no ha habido trabajo en equipo. 
-No obstante, el trabajo le hemos realizado mayoritariamente los dos juntos en clase. 
-Los commits solo los ha podido hacer Borja ya que Alberto ha tenido problemas con las 
-versiones y no ha conseguido establecer el entorno correctamente.
-
+  - Nuestro conjunto de pruebas se puede decir que tiene calidad ya que tiene una cobertura del 92,54%.
 
 
 + ¿Cuál es el esfuerzo invertido en realizar la actividad?
