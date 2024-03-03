@@ -55,17 +55,17 @@ public class ReusablePoolTest {
 	@Test
 	public void testAcquireReusable() {
 		try {
-	        Reusable reusable1 = pool.acquireReusable();
-	        assertNotNull(reusable1); // Verifica que el objeto devuelto no es nulo
-	        assertTrue(reusable1 instanceof Reusable); // Verifica que el objeto devuelto es una instancia de Reusable
-	        
-	        Reusable reusable2 = pool.acquireReusable();
-	        assertNotNull(reusable2); // Verifica que el segundo objeto devuelto no es nulo
-	        assertTrue(reusable2 instanceof Reusable); // Verifica que el segundo objeto devuelto es una instancia de Reusable
-
-	    } catch (NotFreeInstanceException e) {
-	        fail("No debería lanzar una excepción al adquirir objetos reusables.");
-	    }
+		        Reusable reusable1 = pool.acquireReusable();
+		        assertNotNull(reusable1); // Verifica que el objeto devuelto no es nulo
+		        assertTrue(reusable1 instanceof Reusable); // Verifica que el objeto devuelto es una instancia de Reusable
+		        
+		        Reusable reusable2 = pool.acquireReusable();
+		        assertNotNull(reusable2); // Verifica que el segundo objeto devuelto no es nulo
+		        assertTrue(reusable2 instanceof Reusable); // Verifica que el segundo objeto devuelto es una instancia de Reusable
+	
+		} catch (NotFreeInstanceException e) {
+		        fail("No debería lanzar una excepción al adquirir objetos reusables.");
+		}
 	}
 
 	/**
@@ -79,14 +79,14 @@ public class ReusablePoolTest {
 			assertNotNull(reusable1);
 			
 			// Liberamos las instancia.
-		  	pool.releaseReusable(reusable1);
+			pool.releaseReusable(reusable1);
 		    
 			// Volvemos a liberar la instancia.
 			pool.releaseReusable(reusable1);//Lanza DuplicatedInstanceException
 			
 			// Si no lanza la excepcion falla el test.
 			fail("Se esperaba una excepción DuplicatedInstanceException, pero no se lanzó.");
-		}catch(DuplicatedInstanceException e){
+	 	}catch(DuplicatedInstanceException e){
 			assertNotNull(e);
 		}
 	
