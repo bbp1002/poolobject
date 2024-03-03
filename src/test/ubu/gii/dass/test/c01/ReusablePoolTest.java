@@ -79,14 +79,14 @@ public class ReusablePoolTest {
 			assertNotNull(reusable1);
 			
 			// Liberamos las instancia.
-			pool.releaseReusable(reusable1);
+		  	pool.releaseReusable(reusable1);
 		    
 			// Volvemos a liberar la instancia.
 			pool.releaseReusable(reusable1);//Lanza DuplicatedInstanceException
 			
 			// Si no lanza la excepcion falla el test.
 			fail("Se esperaba una excepción DuplicatedInstanceException, pero no se lanzó.");
-	 	}catch(DuplicatedInstanceException e){
+		}catch(DuplicatedInstanceException e){
 			assertNotNull(e);
 		}
 	
